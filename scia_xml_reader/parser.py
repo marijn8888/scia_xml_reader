@@ -34,7 +34,7 @@ def _parse_table(table: ET.Element, model: Type[T], attribute_mapping: dict[str,
 def parse_project_data(root: ET.Element, info: parse_info.ParseInfo = parse_info.ProjectDataParseInfo) -> ProjectData:
     table = get_table(root, info.table_name)
 
-    if not table:
+    if table is None:
         raise MissingTableError(f"Table with name '{info.table_name}' not found in xml.")
     
     lst = _parse_table(table, model=info.model, attribute_mapping=info.attribute_mapping)
@@ -44,7 +44,7 @@ def parse_project_data(root: ET.Element, info: parse_info.ParseInfo = parse_info
 def parse_nodes(root: ET.Element, info: parse_info.ParseInfo = parse_info.NodeParseInfo) -> list[Node]:
     table = get_table(root, info.table_name)
 
-    if not table:
+    if table is None:
         raise MissingTableError(f"Table with name '{info.table_name}' not found in xml.")
 
     return _parse_table(
@@ -55,7 +55,7 @@ def parse_nodes(root: ET.Element, info: parse_info.ParseInfo = parse_info.NodePa
 def parse_beams(root: ET.Element, info: parse_info.ParseInfo = parse_info.BeamParseInfo) -> list[Beam]:
     table = get_table(root, info.table_name)
 
-    if not table:
+    if table is None:
         raise MissingTableError(f"Table with name '{info.table_name}' not found in xml.")
     
     return _parse_table(

@@ -7,13 +7,13 @@ def get_tables(element: ET.Element, table_t: str) -> list[ET.Element]:
     return element.findall(f".//scia:table[@t='{table_t}']", NS)
 
 
-def get_table(element: ET.Element, table_t: str) -> ET.Element:
+def get_table(element: ET.Element, table_t: str) -> ET.Element | None:
     return element.find(f".//scia:table[@t='{table_t}']", NS)
 
 
 def get_headers(element: ET.Element) -> list[str]:
     header_element = element.find('.//scia:h', NS)
-    if not header_element:
+    if header_element is None:
         raise ValueError(f"Element '{element}' has no headers.")
     return [h.attrib['t'] for h in header_element]
 
